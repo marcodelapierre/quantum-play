@@ -1,4 +1,7 @@
-## Early experiments with the PennyLane framework
+## Early experiments with Quantum Computing frameworks
+
+
+### PennyLane
 
 [PennyLane](https://pennylane.ai) is a framework for differentiable Quantum Computing by [Xanadu](https://xanadu.ai).
 
