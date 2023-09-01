@@ -26,3 +26,11 @@ Useful resources:
 * [Qiskit Textbook](https://qiskit.org/learn)
 
 
+### Qristal
+
+[Qristal](https://quantumbrilliance.com/quantum-brilliance-qristal) is the software development kit for quantum computing by [Quantum Brilliance](https://quantumbrilliance.com/).
+
+Useful resources:
+* [Qristal repo](https://gitlab.com/qbau/software-and-apps/public/QBSDK)
+
+
