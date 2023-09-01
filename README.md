@@ -6,9 +6,23 @@
 [PennyLane](https://pennylane.ai) is a framework for differentiable Quantum Computing by [Xanadu](https://xanadu.ai).
 
 Useful resources:
-* [GitHub repo](https://github.com/pennyLaneAI/pennylane)
+* [PennyLane repo](https://github.com/pennyLaneAI/pennylane)
+* [PennyLane Lightning repo](https://github.com/PennyLaneAI/pennylane)
+* [PennyLane Lightning Kokkos repo](https://github.com/PennyLaneAI/pennylane-kokkos)
+* [PennyLane Lightning GPU repo](https://github.com/PennyLaneAI/pennylane-gpu)
 * [Docs](https://docs.pennylane.ai)
 * [Learning Centre](https://pennylane.ai/qml/)
 * [Xanadu Quantum Codebook](https://codebook.xanadu.ai)
-* [Xanadu Cloud](https://cloud.xanadu.ai)
+
+
+### Qiskit
+
+[Qiskit](https://qiskit.org/) is an open-source SDK for working with quantum computers by IBM.
+
+Useful resources:
+* [Qiskit repo](https://github.com/qiskit/qiskit)
+* [Qiskit AER repo](https://github.com/qiskit/qiskit-aer)
+* [Docs](https://qiskit.org/documentation)
+* [Qiskit Textbook](https://qiskit.org/learn)
+
 
