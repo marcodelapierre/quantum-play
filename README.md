@@ -28,7 +28,7 @@ Useful resources:
 
 ### Qristal
 
-[Qristal](https://quantumbrilliance.com/quantum-brilliance-qristal) is the software development kit for quantum computing by [Quantum Brilliance](https://quantumbrilliance.com/).
+[Qristal](https://quantumbrilliance.com/quantum-brilliance-qristal) is the software development kit for quantum computing by [Quantum Brilliance](https://quantumbrilliance.com/).  Legacy versions went under the name `qbOS`.
 
 Useful resources:
 * [Qristal repo](https://gitlab.com/qbau/software-and-apps/public/QBSDK)
