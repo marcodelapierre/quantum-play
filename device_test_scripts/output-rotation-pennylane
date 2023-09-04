@@ -1,0 +1,23 @@
+0.8515405859048367
+[array(-0.51043865), array(-0.1026782)]
+Cost after step     5:  0.9961778
+Cost after step    10:  0.8974944
+Cost after step    15:  0.1440490
+Cost after step    20: -0.1536720
+Cost after step    25: -0.9152496
+Cost after step    30: -0.9994046
+Cost after step    35: -0.9999964
+Cost after step    40: -1.0000000
+Cost after step    45: -1.0000000
+Cost after step    50: -1.0000000
+Cost after step    55: -1.0000000
+Cost after step    60: -1.0000000
+Cost after step    65: -1.0000000
+Cost after step    70: -1.0000000
+Cost after step    75: -1.0000000
+Cost after step    80: -1.0000000
+Cost after step    85: -1.0000000
+Cost after step    90: -1.0000000
+Cost after step    95: -1.0000000
+Cost after step   100: -1.0000000
+Optimized rotation angles: [7.49372738e-17 3.14159265e+00]
