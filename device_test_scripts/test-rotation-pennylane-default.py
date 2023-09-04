@@ -3,7 +3,6 @@
 import pennylane as qml
 from pennylane import numpy as np
 
-
 dev1 = qml.device("default.qubit", wires=1)
 
 
