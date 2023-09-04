@@ -34,3 +34,8 @@ Useful resources:
 * [Qristal repo](https://gitlab.com/qbau/software-and-apps/public/QBSDK)
 
 
+### QUISA Projects
+
+* Simulator for Quantum Variational Algorithms: [QuOP_MPI](https://github.com/Edric-Matwiejew/QuOp_MPI)
+* Quantum benchmarks: [Quantum_Benchmarking](https://github.com/John-J-Tanner/Quantum_Benchmarking)
+
