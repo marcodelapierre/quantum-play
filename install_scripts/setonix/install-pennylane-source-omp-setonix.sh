@@ -30,7 +30,7 @@ cd $source_dir/pennylane-lightning-kokkos
 git checkout v$pl_ver
 CMAKE_ARGS="-DCMAKE_CXX_COMPILER=CC \
   -DCMAKE_PREFIX_PATH=\"$install_dir\" \
-  -DENABLE_NATIVE=ON \
+  -DPLKOKKOS_ENABLE_NATIVE=ON \
   -DKokkos_ENABLE_OPENMP=ON" \
   pip install --prefix=$install_dir .
 cd -
