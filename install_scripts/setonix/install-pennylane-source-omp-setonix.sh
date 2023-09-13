@@ -8,13 +8,13 @@ cd $source_dir/pennylane-lightning-kokkos
 git checkout v$pl_ver
 CMAKE_ARGS="-DCMAKE_CXX_COMPILER=CC \
   -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_PREFIX_PATH=$install_dir \
   -DPLKOKKOS_ENABLE_NATIVE=ON \
-  -DKokkos_ENABLE_OPENMP=ON" \
+  -DKokkos_ENABLE_OPENMP=ON \
+  -DKokkos_ARCH_ZEN3=On" \
   pip install --prefix=$install_dir .
 cd -
 
 # configure for startup
-echo "export PYTHONPATH=\"$lib_dir:\$PYTHONPATH\"" >> $(eval echo ~${USERID})/.bashrc
-echo "export PATH=\"$bin_dir:\$PATH\"" >> $(eval echo ~${USERID})/.bashrc
+#echo "export PYTHONPATH=\"$lib_dir:\$PYTHONPATH\"" >> $(eval echo ~${USERID})/.bashrc
+#echo "export PATH=\"$bin_dir:\$PATH\"" >> $(eval echo ~${USERID})/.bashrc
 
