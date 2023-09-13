@@ -33,22 +33,23 @@ export PATH="$bin_dir:$PATH"
 git clone https://github.com/PennyLaneAI/pennylane-lightning-kokkos $source_dir/pennylane-lightning-kokkos
 cd $source_dir/pennylane-lightning-kokkos
 git checkout v$pl_ver
+sed -i 's;GIT_TAG *3\.7.*;GIT_TAG        4.1.00;g' CMakeLists.txt
 CMAKE_ARGS="-DCMAKE_CXX_COMPILER=hipcc \
   -DCMAKE_PREFIX_PATH=\"$install_dir\" \
   -DPLKOKKOS_ENABLE_NATIVE=ON \
   -DKokkos_ENABLE_HIP=ON \
-  -DKokkos_ARCH_VEGA908=ON" \
+  -DKokkos_ARCH_VEGA90A=ON" \
   pip install --prefix=$install_dir .
 cd -
 
-rm -fr build PennyLane_Lightning_Kokkos.egg-info
-cmake -B build . \
-  -DCMAKE_CXX_COMPILER=hipcc \
-  -DCMAKE_PREFIX_PATH=\"$install_dir\" \
-  -DPLKOKKOS_ENABLE_NATIVE=ON \
-  -DKokkos_ENABLE_HIP=ON \
-  -DKokkos_ARCH_VEGA908=ON
-cmake --build build
+#rm -fr build PennyLane_Lightning_Kokkos.egg-info
+#cmake -B build . \
+#  -DCMAKE_CXX_COMPILER=hipcc \
+#  -DCMAKE_PREFIX_PATH=\"$install_dir\" \
+#  -DPLKOKKOS_ENABLE_NATIVE=ON \
+#  -DKokkos_ENABLE_HIP=ON \
+#  -DKokkos_ARCH_VEGA90A=ON
+#cmake --build build
 
 # configure for startup
 echo "export PYTHONPATH=\"$lib_dir:\$PYTHONPATH\"" >> $(eval echo ~${USERID})/.bashrc
