@@ -16,8 +16,8 @@ pip install --prefix="$install_dir" \
   pennylane=="$pl_ver" \
   pennylane-lightning=="$pl_ver" \
   pennylane-qiskit=="$pl_ver" \
-  qiskit="$qk_ver" \
-  qiskit-aer="$aer_ver"
+  qiskit=="$qk_ver" \
+  qiskit-aer=="$aer_ver"
 
 # configure for startup
 echo "export PYTHONPATH=\"$lib_dir:\$PYTHONPATH\"" >> $(eval echo ~${USERID})/.bashrc
