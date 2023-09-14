@@ -3,7 +3,11 @@
 
 ### Quick Start
 
-To get started with the contents of `install_scripts/` and `device_test_scripts/`, move to the directory where you want to install the framework, pick the desired `use-<type>`/`install-<type>` pair from the `install_scripts/` directory, copy it in your location, then to build run the `install-<type>` script. To use the framework, `source` the `use-<type>` script, and then execute the desired program.
+To get started with the contents of `install_scripts/` and `device_test_scripts/`:
+* move to the directory where you want to install the framework, 
+* pick the desired `use-<type>`/`install-<type>` pair from the `install_scripts/` directory, 
+* copy it in your location, then to build run the `install-<type>` script. 
+* To use the framework, `source` the `use-<type>` script, and then execute the desired program.
 
 
 ### PennyLane
