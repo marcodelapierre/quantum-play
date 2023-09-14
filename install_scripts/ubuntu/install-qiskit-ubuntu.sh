@@ -13,8 +13,8 @@ pip3 install --upgrade pip
 # install
 mkdir -p $install_dir
 pip install --prefix="$install_dir" \
-  qiskit="$qk_ver" \
-  qiskit-aer="$aer_ver"
+  qiskit=="$qk_ver" \
+  qiskit-aer=="$aer_ver"
 
 # configure for startup
 echo "export PYTHONPATH=\"$lib_dir:\$PYTHONPATH\"" >> $(eval echo ~${USERID})/.bashrc

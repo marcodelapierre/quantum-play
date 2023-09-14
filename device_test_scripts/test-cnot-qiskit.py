@@ -45,8 +45,6 @@ outputstate = result.get_unitary(circ, decimals=3)
 print(outputstate)
 
 
-
-
 # create a quantum circuit with measurements
 circ = create_circuit()
 meas = QuantumCircuit(3, 3)
