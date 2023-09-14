@@ -3,7 +3,7 @@
 import pennylane as qml
 from pennylane import numpy as np
 
-dev1 = qml.device("qiskit.aer", wires=1, method='statevector', device='CPU')
+dev1 = qml.device("qiskit.aer", wires=1, method='statevector', device='GPU')
 
 
 # basic circuit
