@@ -24,6 +24,8 @@ Useful resources:
 * [Xanadu Quantum Codebook](https://codebook.xanadu.ai)
 * PennyLane Lightning setup resources
   * [Installation](https://docs.pennylane.ai/projects/lightning-kokkos/en/latest/installation.html)
+  * [Lightning Kokkos blog post](https://pennylane.ai/blog/2023/04/pennylane-goes-kokkos-a-novel-hardware-agnostic-parallel-backend-for-quantum-simulations/)
+  * [Distributed Lightning Nvidia GPU blog post](https://pennylane.ai/blog/2023/09/distributing-quantum-simulations-using-lightning-gpu-with-NVIDIA-cuQuantum/)
   * [Device API](https://docs.pennylane.ai/projects/lightning-kokkos/en/latest/devices.html)
 
 
