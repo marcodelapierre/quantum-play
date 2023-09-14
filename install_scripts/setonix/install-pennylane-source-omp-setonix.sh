@@ -13,8 +13,3 @@ CMAKE_ARGS="-DCMAKE_CXX_COMPILER=CC \
   -DKokkos_ARCH_ZEN3=On" \
   pip install --prefix=$install_dir .
 cd -
-
-# configure for startup
-#echo "export PYTHONPATH=\"$lib_dir:\$PYTHONPATH\"" >> $(eval echo ~${USERID})/.bashrc
-#echo "export PATH=\"$bin_dir:\$PATH\"" >> $(eval echo ~${USERID})/.bashrc
-

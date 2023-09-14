@@ -49,8 +49,3 @@ done
 cmake --build build
 pip install --prefix=$install_dir .
 cd -
-
-# configure for startup
-#echo "export PYTHONPATH=\"$lib_dir:\$PYTHONPATH\"" >> $(eval echo ~${USERID})/.bashrc
-#echo "export PATH=\"$bin_dir:\$PATH\"" >> $(eval echo ~${USERID})/.bashrc
-

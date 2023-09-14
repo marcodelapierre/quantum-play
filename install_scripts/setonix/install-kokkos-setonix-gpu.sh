@@ -38,6 +38,3 @@ cmake .. \
 
 make -j $SLURM_CPUS_PER_TASK
 sg pawsey0001 -c 'make install'
-
-
-
