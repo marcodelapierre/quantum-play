@@ -17,7 +17,7 @@ module load rocm/5.2.3
 module load craype-accel-amd-gfx90a
 
 if [ "$download_kokkos" != "0" ] ; then
- rm -rf kokkos-cpu
+ rm -rf kokkos${suffix}-src
  git clone https://github.com/kokkos/kokkos kokkos${suffix}-src
 fi
 
