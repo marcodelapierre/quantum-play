@@ -8,7 +8,7 @@
 #SBATCH --time=00:30:00
 #SBATCH --output=out-%x
 
-. use-pennylane-source-hip-setonix.sh 
+. use-pennylane-source-hip-internal-kk-setonix.sh 
 
 # install from source
 git clone https://github.com/PennyLaneAI/pennylane-lightning-kokkos $source_dir/pennylane-lightning-kokkos
