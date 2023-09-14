@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import numpy as np
 from qiskit import QuantumCircuit
 from qiskit_aer import AerSimulator
 from qiskit.compiler import transpile

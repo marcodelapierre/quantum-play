@@ -7,13 +7,15 @@ git clone https://github.com/Qiskit/qiskit-aer $source_dir/qiskit-aer
 cd $source_dir/qiskit-aer
 git checkout $aer_ver
 pip install --prefix=$install_dir -r requirements-dev.txt
+pip install --prefix=$install_dir pybind11[global]
 
-CMAKE_ARGS="-DCMAKE_CXX_COMPILER=CC \
+python ./setup.py bdist_wheel -- \
+  -DCMAKE_CXX_COMPILER=CC \
   -DCMAKE_BUILD_TYPE=Release \
   -DAER_MPI=True \
-  -DAER_DISABLE_GDR=True" \
-  pip install --prefix=$install_dir .
-#  -DAER_BLAS_LIB_PATH=$PAWSEY_OPENBLAS_HOME \
+  -DAER_DISABLE_GDR=True \
+  --
 #  -DAER_THRUST_BACKEND=OMP \
 
+pip install --prefix=$install_dir -U dist/qiskit_aer*.whl
 cd -
