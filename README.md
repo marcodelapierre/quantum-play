@@ -24,6 +24,11 @@ Useful resources:
 * [Qiskit AER repo](https://github.com/qiskit/qiskit-aer)
 * [Docs](https://qiskit.org/documentation)
 * [Qiskit Textbook](https://qiskit.org/learn)
+* Qiskit setup resources
+  * [Installation with MPI and/or GPU](https://github.com/Qiskit/qiskit-aer/blob/main/CONTRIBUTING.md)
+  * [Running with multiple-GPUs and/or multiple nodes](https://qiskit.org/ecosystem/aer/howtos/running_gpu.html)
+  * [Running with Threadpool and DASK](https://qiskit.org/ecosystem/aer/howtos/parallel.html)
+  * [AerSimulator API options](https://qiskit.org/ecosystem/aer/stubs/qiskit_aer.AerSimulator.html)
 
 
 ### Qristal
