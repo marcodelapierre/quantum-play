@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # essential for reproducibility of installation
-tool_name="qiskit"
-qk_ver="0.44.1"
+tool_name="qiskit-mpi"
+#qk_ver="0.44.1"
 aer_ver="0.12.2"
 
 # host versions

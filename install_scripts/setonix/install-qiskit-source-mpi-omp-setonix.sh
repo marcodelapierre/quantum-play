@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. use-qiskit-source-mpi-setonix.sh
+. use-qiskit-source-mpi-omp-setonix.sh
 
 # install
 git clone https://github.com/Qiskit/qiskit-aer $source_dir/qiskit-aer
