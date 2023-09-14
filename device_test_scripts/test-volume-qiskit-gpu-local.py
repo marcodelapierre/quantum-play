@@ -6,7 +6,7 @@ from qiskit.compiler import transpile
 from qiskit.circuit.library import QuantumVolume
 
 sim = AerSimulator(method='statevector', device='GPU')
-circ = QuantumVolume(40, 10, seed = 0)
+circ = QuantumVolume(30, 10, seed = 0)
 circ.save_statevector()
 circ = transpile(circ)
 circ.measure_all()
