@@ -21,4 +21,3 @@ bin_dir="$install_dir/bin"
 #
 export PYTHONPATH="$lib_dir:$PYTHONPATH"
 export PATH="$bin_dir:$PATH"
-
