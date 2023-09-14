@@ -8,7 +8,7 @@
 #SBATCH --time=00:30:00
 #SBATCH --output=out-%x
 
-. use-pennylane-source-hip-setonix.sh 
+. use-pennylane-source-hip-setonix.sh
 
 # install from source
 git clone https://github.com/PennyLaneAI/pennylane-lightning-kokkos $source_dir/pennylane-lightning-kokkos
@@ -17,15 +17,18 @@ git checkout v$pl_ver
 
 #CMAKE_ARGS="-DCMAKE_CXX_COMPILER=hipcc \
 #  -DCMAKE_BUILD_TYPE=Release \
-#  -DCMAKE_PREFIX_PATH=$(pwd)/../../kokkos-setonix-gpu \
+#  -DKokkos_ENABLE_HIP=ON \
+#  -DKokkos_ARCH_VEGA90A=ON \
 #  -DPLKOKKOS_ENABLE_NATIVE=ON" \
 #  pip install --prefix=$install_dir .
 
 rm -fr build PennyLane_Lightning_Kokkos.egg-info
 cmake -B build . \
   -DCMAKE_CXX_COMPILER=hipcc \
+  -DCMAKE_CXX_FLAGS=--gcc-toolchain=$(dirname $(which g++))/../snos \
   -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_PREFIX_PATH=$(pwd)/../../kokkos-setonix-gpu \
+  -DKokkos_ENABLE_HIP=ON \
+  -DKokkos_ARCH_VEGA90A=ON \
   -DPLKOKKOS_ENABLE_NATIVE=ON
 #  -DCMAKE_VERBOSE_MAKEFILE=ON \
 #  -DPLKOKKOS_ENABLE_WARNINGS=ON \
