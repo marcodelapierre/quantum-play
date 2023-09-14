@@ -1,6 +1,11 @@
 ## Early experiments with Quantum Computing frameworks
 
 
+### Quick Start
+
+To get started with the contents of `install_scripts/` and `device_test_scripts/`, move to the directory where you want to install the framework, pick the desired `use-<type>`/`install-<type>` pair from the `install_scripts/` directory, copy it in your location, then to build run the `install-<type>` script. To use the framework, `source` the `use-<type>` script, and then execute the desired program.
+
+
 ### PennyLane
 
 [PennyLane](https://pennylane.ai) is a framework for differentiable Quantum Computing by [Xanadu](https://xanadu.ai).
@@ -13,6 +18,9 @@ Useful resources:
 * [Docs](https://docs.pennylane.ai)
 * [Learning Centre](https://pennylane.ai/qml/)
 * [Xanadu Quantum Codebook](https://codebook.xanadu.ai)
+* PennyLane Lightning setup resources
+  * [Installation](https://docs.pennylane.ai/projects/lightning-kokkos/en/latest/installation.html)
+  * [Device API](https://docs.pennylane.ai/projects/lightning-kokkos/en/latest/devices.html)
 
 
 ### Qiskit
@@ -24,7 +32,7 @@ Useful resources:
 * [Qiskit AER repo](https://github.com/qiskit/qiskit-aer)
 * [Docs](https://qiskit.org/documentation)
 * [Qiskit Textbook](https://qiskit.org/learn)
-* Qiskit setup resources
+* Qiskit AER setup resources
   * [Installation with MPI and/or GPU](https://github.com/Qiskit/qiskit-aer/blob/main/CONTRIBUTING.md)
   * [Running with multiple-GPUs and/or multiple nodes](https://qiskit.org/ecosystem/aer/howtos/running_gpu.html)
   * [Running with Threadpool and DASK](https://qiskit.org/ecosystem/aer/howtos/parallel.html)
