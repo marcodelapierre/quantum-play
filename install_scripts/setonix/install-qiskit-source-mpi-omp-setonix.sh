@@ -13,6 +13,7 @@ python ./setup.py bdist_wheel -- \
   -DCMAKE_CXX_COMPILER=CC \
   -DCMAKE_BUILD_TYPE=Release \
   -DAER_MPI=True \
+  -DAER_THRUST_BACKEND=OMP \
   -DAER_DISABLE_GDR=True \
   --
 
