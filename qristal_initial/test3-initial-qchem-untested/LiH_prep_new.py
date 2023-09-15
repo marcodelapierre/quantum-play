@@ -1,0 +1,92 @@
+#!/usr/bin/env python3
+from prepare_library import *
+import re
+from pyscf import gto, scf
+
+#(1) define molecule
+mol = gto.Mole()
+mol.build(
+        atom = '''Li 0 0 -1.505; H 0 0 +1.505''',
+        unit = 'B',
+        basis = 'sto-3g',
+        symmetry = 'Coov'
+        )
+
+#(2) do Hartree-Fock calculation and obtain MO integrals  
+mf = scf.RHF(mol)
+mf.conv_tol = 1e-14
+mf.conv_tol_grad = 1e-14
+mf.max_cycle = 200
+mf.kernel()
+
+#print orbital energies, occupancies and irreps
+mf.analyze()
+
+
+#quit()
+## analyse the output of `mf.analyze()` above,
+## to choose which configurations to add to the `mpb` object below
+
+
+mpb = [ConfigurationStateFunction.from_str({"0+0-1+1-" : 1.0}),
+       ConfigurationStateFunction.from_str({"0+0-1+5-" : 1.0/math.sqrt(2.0), 
+                                            "0+0-1-5+" : -1.0/math.sqrt(2.0)}),
+       ConfigurationStateFunction.from_str({"0+0-3+3-" : 1.0}),
+       ConfigurationStateFunction.from_str({"0+0-5+5-" : 1.0})]
+
+print("Many-particle basis:")
+for i in mpb:
+    print(i)
+
+
+from pyscf import ao2mo
+from functools import reduce
+
+#do ao -> mo transformation 
+h1ao = scf.hf.get_hcore(mol) #get 1p AO integrals 
+h1mo = reduce(np.dot, (mf.mo_coeff.T, h1ao, mf.mo_coeff)) #transform to MO basis 
+h2mo = ao2mo.full(mol, mf.mo_coeff) #get 2p MO integrals
+
+
+H = np.ndarray([len(mpb), len(mpb)], dtype=np.float64)
+for i in range(0, len(mpb), 1):
+    for j in range(i, len(mpb), 1):
+        H[i,j] = slater_condon_rules_csf(mpb[i], mpb[j], h1mo, h2mo)
+        H[j,i] = H[i,j] #use hermiticity
+np.set_printoptions(precision=14, suppress=True)
+print("Hamiltonian matrix representation:")
+print(H)
+
+
+import pennylane as qml
+
+#do all replacements from dictionary
+def replace_all(text:str, dic)->str:
+    for before, after in dic.items():
+        text = text.replace(before, after)
+    return text
+
+#convert hamiltonian to Pauli strings using pennylane
+def pauli_decomposition(H) ->str:
+    qristal_string = ""
+
+    #(1) decompose Hamiltonian into pennylane Hamiltonian
+    pauli_string = str(qml.pauli_decompose(H))
+
+    #(2) Convert to qristal format using regex
+    matches = re.findall("\(([-]?[0-9]+.[0-9]+)\) \[([IXYZ0-9) ]+)\]", pauli_string)
+    for match in matches: 
+        qristal_paulis = ""
+        pauli_matches = re.findall("([IXYZ])([0-9])+", match[1])
+        for pauli_match in pauli_matches: 
+            if pauli_match[0] != "I": #only print non identity Pauli terms 
+                qristal_paulis += pauli_match[0] + pauli_match[1]
+        if len(qristal_string) > 0:
+            qristal_string += " + "
+        qristal_string += match[0] + " " + qristal_paulis
+
+    return qristal_string
+
+pauli_string = pauli_decomposition(H)
+print("Pauli string (compatible with qristal):")
+print(pauli_string)
