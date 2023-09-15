@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
 from prepare_library import *
-
-
+import re
 from pyscf import gto, scf
 
 #(1) define molecule
 mol = gto.Mole()
 mol.build(
-        atom = '''Li 0 0 -1.505; H 0 0 +1.505''',
+        atom = '''O  0.0 0.0 -0.73881674482711;
+H  1.43103620092628  0.0  0.36940837241355;
+H  -1.43103620092628  0.0  0.36940837241355''',
         unit = 'B',
         basis = 'sto-3g',
-        symmetry = 'Coov'
+        symmetry = 'C2v'
         )
 
 #(2) do Hartree-Fock calculation and obtain MO integrals  
@@ -29,9 +30,13 @@ mf.analyze()
 ## to choose which configurations to add to the `mpb` object below
 
 
-mpb = [ConfigurationStateFunction.from_str({"0+0-1+1-" : 1.0}),
-       ConfigurationStateFunction.from_str({"0+0-3+3-" : 1.0}),
-       ConfigurationStateFunction.from_str({"0+0-4+4-" : 1.0})]
+## taken from Nils' example. makes quite sense as a simple 2 qubit case
+core = "0+0-1+1-2+2-4+4-"
+mpb = [ConfigurationStateFunction.from_str({core + "3+3-" : 1.0}),
+       ConfigurationStateFunction.from_str({core + "3+5-" : 1.0/np.sqrt(2), 
+                                            core + "3-5+" : -1.0/np.sqrt(2)}),
+       ConfigurationStateFunction.from_str({core + "5+5-" : 1.0}),
+       ConfigurationStateFunction.from_str({core + "6+6-" : 1.0})]
 
 print("Many-particle basis:")
 for i in mpb:
@@ -67,19 +72,25 @@ def replace_all(text:str, dic)->str:
 
 #convert hamiltonian to Pauli strings using pennylane
 def pauli_decomposition(H) ->str:
-    coeffs, obs_list = qml.utils.decompose_hamiltonian(H) #call decomposition routine 
-    hamiltonian = qml.Hamiltonian(coeffs, obs_list, simplify = True)
-    pauli_string = str(hamiltonian)
-    #make string compatible to qbos 
-    replacements = {"\n" : "",
-                    "[" : "",
-                    "]" : "",
-                    "(" : "",
-                    ")" : "",
-                    "I0" : ""}
-    pauli_string = replace_all(pauli_string, replacements)
-    return pauli_string
+    qristal_string = ""
+
+    #(1) decompose Hamiltonian into pennylane Hamiltonian
+    pauli_string = str(qml.pauli_decompose(H))
+
+    #(2) Convert to qristal format using regex
+    matches = re.findall("\(([-]?[0-9]+.[0-9]+)\) \[([IXYZ0-9) ]+)\]", pauli_string)
+    for match in matches: 
+        qristal_paulis = ""
+        pauli_matches = re.findall("([IXYZ])([0-9])+", match[1])
+        for pauli_match in pauli_matches:
+            if pauli_match[0] != "I": #only print non identity Pauli terms 
+                qristal_paulis += pauli_match[0] + pauli_match[1]
+        if len(qristal_string) > 0:
+            qristal_string += " + "
+        qristal_string += match[0] + " " + qristal_paulis
+
+    return qristal_string
 
 pauli_string = pauli_decomposition(H)
-print("Pauli string (compatible with qbOS):")
+print("Pauli string (compatible with qristal):")
 print(pauli_string)

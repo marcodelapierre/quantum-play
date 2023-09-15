@@ -11,7 +11,7 @@ def qbvqe(theta):
     params.isDeterministic = True #if true, nShots option is rendered useless
     params.maxIters = 1  # initial energy only - no internal optimisation steps
     params.nQubits = 2 # Number of qubits
-    params.pauliString = "-8.274124621314591  + -0.27006470525930126 Z0 + -0.25203742835554177 Z1 + -0.07576596838820596 Y0Y1 + -0.0625415679472523 Z0Z1 + -0.00985475909609422 Z0X1 + 0.006424616021402294 X0Z1 + 0.009854759096095612 X1 + 0.017037474116480867 X0 + 0.048082961358845495 X0X1"
+    params.pauliString = "-8.274124621314595  + -0.2700647052593024 Z0 + -0.25203742835554177 Z1 + -0.07576596838820596 Y0Y1 + -0.06254156794725207 Z0Z1 + -0.0098547590960945 Z0X1 + 0.006424616021402211 X0Z1 + 0.009854759096095326 X1 + 0.01703747411648096 X0 + 0.04808296135884549 X0X1"
     params.circuitString = '''
 .compiler xasm 
 .circuit ansatz
