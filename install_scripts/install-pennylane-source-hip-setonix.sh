@@ -9,7 +9,6 @@
 #SBATCH --time=00:30:00
 #SBATCH --output=out-%x
 
-here=$(pwd)
 . use-pennylane-source-hip-setonix.sh
 
 # install from source
@@ -24,14 +23,10 @@ git checkout v$pl_ver
 #  -DPLKOKKOS_ENABLE_NATIVE=ON" \
 #  pip install --prefix=$install_dir .
 
-rm -fr build
-mkdir build
-cd build
-cmake .. \
+cmake -B build . \
   -DCMAKE_CXX_COMPILER=hipcc \
   -DCMAKE_CXX_FLAGS=--gcc-toolchain=$(dirname $(which g++))/../snos \
   -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_INSTALL_PREFIX=$install_dir \
   -DKokkos_ENABLE_HIP=ON \
   -DKokkos_ARCH_VEGA90A=ON \
   -DPLKOKKOS_ENABLE_NATIVE=ON
@@ -40,19 +35,19 @@ cmake .. \
 
 # Marco's workaround for pybind11 build configuration issue
 # (incorrectly picking up system Python instead of module Python)
-echo "Patching CMakeCache.txt"
-sed -i "s;/usr/bin/python3\.6;$PAWSEY_PYTHON_HOME/bin/python$python_ver;g" CMakeCache.txt
-sed -i "s;/usr/include/python3\.6m;$PAWSEY_PYTHON_HOME/include/python$python_ver;g" CMakeCache.txt
-sed -i "s;/usr/lib64/libpython3\.6m\.so;$PAWSEY_PYTHON_HOME/lib/libpython$python_ver.so;g" CMakeCache.txt
-sed -i "s;3\.6\.15(3\.6);$py_ver($python_ver);g" CMakeCache.txt
-sed -i "s;3\.6\.15;$py_ver;g" CMakeCache.txt
-sed -i "s;36m;${python_ver/./};g" CMakeCache.txt
-echo "Patching CMakeFiles/lightning_kokkos_qubit_ops.dir/flags.make"
-sed -i "s;/usr/include/python3\.6m;$PAWSEY_PYTHON_HOME/include/python$python_ver;g" CMakeFiles/lightning_kokkos_qubit_ops.dir/flags.make
+echo "Patching build/CMakeCache.txt"
+sed -i "s;/usr/bin/python3\.6;$PAWSEY_PYTHON_HOME/bin/python$python_ver;g" build/CMakeCache.txt
+sed -i "s;/usr/include/python3\.6m;$PAWSEY_PYTHON_HOME/include/python$python_ver;g" build/CMakeCache.txt 
+sed -i "s;/usr/lib64/libpython3\.6m\.so;$PAWSEY_PYTHON_HOME/lib/libpython$python_ver.so;g" build/CMakeCache.txt 
+sed -i "s;3\.6\.15(3\.6);$py_ver($python_ver);g" build/CMakeCache.txt 
+sed -i "s;3\.6\.15;$py_ver;g" build/CMakeCache.txt 
+sed -i "s;36m;${python_ver/./};g" build/CMakeCache.txt
+echo "Patching build/CMakeFiles/lightning_kokkos_qubit_ops.dir/flags.make"
+sed -i "s;/usr/include/python3\.6m;$PAWSEY_PYTHON_HOME/include/python$python_ver;g" build/CMakeFiles/lightning_kokkos_qubit_ops.dir/flags.make
 
 # Edric's workaround for __noinline__ build issue
 # Also requires --gcc-toolchain above
-files=$(grep -rl "#include <memory>" .)
+files=$(grep -rl "#include <memory>" build)
 for file in $files; do
   echo "Patching $file"
   sed -i 's/#include <memory>/#ifdef __noinline__\
@@ -66,7 +61,11 @@ for file in $files; do
     #endif/g' $file
 done
 
-make
-make install
+cmake --build build
+pip install --prefix=$install_dir .
 
-cd $here
+# bugfix - why on earth?
+filename=$( basename $( ls $lib_dir/pennylane_lightning_kokkos/lightning_kokkos_qubit_ops.cpython* ) )
+cp -p build/lightning_kokkos_qubit_ops.cpython* $lib_dir/pennylane_lightning_kokkos/$filename
+
+cd -
