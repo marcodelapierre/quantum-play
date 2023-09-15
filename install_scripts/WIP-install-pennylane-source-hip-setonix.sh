@@ -2,9 +2,10 @@
 #SBATCH --job-name=install-pennylane-source-hip-setonix
 #SBATCH --account=pawsey0001-gpu
 #SBATCH --partition=gpu-dev
+#SBATCH --exclusive
 #SBATCH --ntasks=1
 #SBATCH --threads-per-core=1
-#SBATCH --gpus-per-node=1
+#SBATCH --gpus-per-node=8
 #SBATCH --time=00:30:00
 #SBATCH --output=out-%x
 
@@ -33,6 +34,18 @@ cmake -B build . \
 #  -DCMAKE_VERBOSE_MAKEFILE=ON \
 #  -DPLKOKKOS_ENABLE_WARNINGS=ON \
 
+# Marco's workaround for pybind11 build configuration issue
+# (incorrectly picking up system Python instead of module Python)
+echo "Patching build/CMakeCache.txt"
+sed -i "s;/usr/bin/python3\.6;$PAWSEY_PYTHON_HOME/bin/python$python_ver;g" build/CMakeCache.txt
+sed -i "s;/usr/include/python3\.6m;$PAWSEY_PYTHON_HOME/include/python$python_ver;g" build/CMakeCache.txt 
+sed -i "s;/usr/lib64/libpython3\.6m\.so;$PAWSEY_PYTHON_HOME/lib/libpython$python_ver.so;g" build/CMakeCache.txt 
+sed -i "s;3\.6\.15(3\.6);$py_ver($python_ver);g" build/CMakeCache.txt 
+sed -i "s;3\.6\.15;$py_ver;g" build/CMakeCache.txt 
+sed -i "s;36m;${python_ver/./};g" build/CMakeCache.txt
+echo "Patching build/CMakeFiles/lightning_kokkos_qubit_ops.dir/flags.make"
+sed -i "s;/usr/include/python3\.6m;$PAWSEY_PYTHON_HOME/include/python$python_ver;g" build/CMakeFiles/lightning_kokkos_qubit_ops.dir/flags.make
+
 # Edric's workaround for __noinline__ build issue
 # Also requires --gcc-toolchain above
 files=$(grep -rl "#include <memory>" build)
@@ -51,4 +64,5 @@ done
 
 cmake --build build
 pip install --prefix=$install_dir .
+
 cd -
