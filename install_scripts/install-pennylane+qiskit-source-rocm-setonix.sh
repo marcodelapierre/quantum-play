@@ -1,5 +1,5 @@
 #!/bin/bash -l
-#SBATCH --job-name=install-qiskit-source-rocm-setonix
+#SBATCH --job-name=install-pennylane+qiskit-source-rocm-setonix
 #SBATCH --account=pawsey0001-gpu
 #SBATCH --partition=gpu-dev
 #SBATCH --exclusive

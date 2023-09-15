@@ -23,7 +23,6 @@ git checkout v$pl_ver
 #  -DPLKOKKOS_ENABLE_NATIVE=ON" \
 #  pip install --prefix=$install_dir .
 
-rm -fr build PennyLane_Lightning_Kokkos.egg-info
 cmake -B build . \
   -DCMAKE_CXX_COMPILER=hipcc \
   -DCMAKE_CXX_FLAGS=--gcc-toolchain=$(dirname $(which g++))/../snos \
@@ -64,5 +63,9 @@ done
 
 cmake --build build
 pip install --prefix=$install_dir .
+
+# bugfix - why on earth?
+filename=$( basename $( ls $lib_dir/pennylane_lightning_kokkos/lightning_kokkos_qubit_ops.cpython* ) )
+cp -p build/lightning_kokkos_qubit_ops.cpython* $lib_dir/pennylane_lightning_kokkos/$filename
 
 cd -
