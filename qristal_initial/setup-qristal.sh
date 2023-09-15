@@ -18,7 +18,7 @@ cd boost_1_71_0/
 ./b2 install
 #
 python3 -m pip install ipopo --prefix="${PIP_DIR}"
-python3 -m pip install pyscf --prefix="${PIP_DIR}"
+python3 -m pip install pyscf pennylane --prefix="${PIP_DIR}"
 #export PATH="${PIP_DIR}/bin:$PATH"
 #export PYTHONPATH="${PIP_DIR}/lib/python3.10/site-packages:$PYTHONPATH"
 
