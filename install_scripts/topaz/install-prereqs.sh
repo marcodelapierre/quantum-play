@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# has to be run from the quantum-play repo, subdir install_scripts/topaz/
+
 py_ver="3.10.10"
 pip_ver="23.1.2"
 st_ver="68.0.0"
