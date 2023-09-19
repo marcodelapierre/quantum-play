@@ -1,0 +1,55 @@
+##############################################################################
+# maali cygnet file for setuptools
+##############################################################################
+
+# specify which compilers we want to build the tool with
+MAALI_TOOL_COMPILERS="$MAALI_DEFAULT_PYTHON"
+
+# URL to download the source code from
+MAALI_URL="https://files.pythonhosted.org/packages/source/$MAALI_PYTHON_FIRSTLETTER/$MAALI_TOOL_NAME_ORIG/$MAALI_TOOL_NAME_ORIG-$MAALI_TOOL_VERSION.tar.gz"
+
+# location we are downloading the source code to
+MAALI_DST="$MAALI_SRC/$MAALI_TOOL_NAME-$MAALI_TOOL_VERSION.tar.gz"
+
+# where the unpacked source code is located
+MAALI_TOOL_BUILD_DIR="$MAALI_BUILD_DIR/$MAALI_TOOL_NAME-$MAALI_TOOL_VERSION"
+
+# tool pre-requisites
+MAALI_TOOL_PREREQ=""
+
+# tool build pre-requisites - not added to the module, only needed for building (loaded after MAALI_TOOL_PREREQ)
+MAALI_TOOL_BUILD_PREREQ=""
+
+# for auto-building module files
+MAALI_MODULE_SET_PATH=1
+
+##############################################################################
+
+function maali_python_build {
+
+  MAALI_PYTHON_MAJOR_VERSION=`echo "$MAALI_PYTHON_VERSION" | cut -d '.' -f 1`
+
+  if [[ $MAALI_PYTHON_MAJOR_VERSION -gt 2 ]] && [[ $MAALI_PYTHON3_SKIP -eq 1 ]] ; then
+    echo "Don't install the package, but do create a module"
+  else
+    # should work with most python packages
+
+    # Call e.g. python2.7, python3.6 directly, rather than just python.
+    MAALI_PYTHON_MAJOR_MINOR_VERSION=`echo "$MAALI_PYTHON_VERSION" | cut -d '.' -f 1,2`
+
+    # need to add the python library path to PYTHONPATH temporarily
+    MAALI_OLD_PYTHONPATH=$PYTHONPATH
+    MAALI_NEWPYTHONPATH="$MAALI_INSTALL_DIR/$MAALI_PYTHON_LIBDIR/python$MAALI_PYTHON_LIB_VERSION/site-packages"
+    export PYTHONPATH="$MAALI_NEWPYTHONPATH:$PYTHONPATH"
+
+    maali_makedir "$MAALI_NEWPYTHONPATH"
+
+    cd "$MAALI_TOOL_BUILD_DIR"
+#    maali_run "python${MAALI_PYTHON_MAJOR_MINOR_VERSION} bootstrap.py"
+    maali_run "python${MAALI_PYTHON_MAJOR_MINOR_VERSION} setup.py build"
+    maali_run "python${MAALI_PYTHON_MAJOR_MINOR_VERSION} setup.py install --prefix=$MAALI_INSTALL_DIR --single-version-externally-managed --root=/"
+
+    export PYTHONPATH=$MAALI_OLD_PYTHONPATH
+  fi
+
+}
