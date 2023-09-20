@@ -53,15 +53,20 @@ MAALI_WGET_EXTRA=--no-check-certificate
 ##############################################################################
 
 function maali_build {
+# this is the core function for creating software
   cd "$MAALI_TOOL_BUILD_DIR"
 
-  maali_run "./configure --prefix=$MAALI_INSTALL_DIR --enable-shared --enable-unicode=ucs4" # --with-openssl=/usr --with-openssl-rpath=auto --with-ssl-default-suites"
+  # still not enough for the _ctypes build issue
+  sed -i "/ext.libraries.append('dl')/a\ \ \ \ \ \ \ \ ext.libraries.append('ffi')" setup.py
+}
+
+function maali_build {
+  cd "$MAALI_TOOL_BUILD_DIR"
+
+  maali_run "./configure --prefix=$MAALI_INSTALL_DIR --enable-shared --enable-unicode=ucs4"
   maali_run "make -j $MAALI_CORES"
   maali_run "make install"
   maali_run "make clean"
-  #maali_run "./configure --prefix=$MAALI_INSTALL_DIR --enable-unicode=ucs4" # --with-openssl=/usr --with-openssl-rpath=auto --with-ssl-default-suites"
-  #maali_run "make -j $MAALI_CORES"
-  #maali_run "make install"
 
   if [ $MAALI_TOOL_MAJOR_VERSION -ge 3 ]; then
     cd "$MAALI_INSTALL_DIR/bin"
