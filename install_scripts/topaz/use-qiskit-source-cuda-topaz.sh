@@ -6,18 +6,18 @@ tool_name="qiskit-cuda"
 aer_ver="0.12.2"
 
 # host versions
-py_ver=""
-pip_ver=""
-st_ver=""
+py_ver="3.10.10"
+pip_ver="23.1.2"
+st_ver="68.0.0"
 blas_ver=""
 cuda_ver="11.4.2"
 mpi_ver="4.0.2"
 
 # load modules
 module load python/$py_ver
-module load py-pip/$pip_ver
-module load py-setuptools/$st_ver
-module load openblas/$blas_ver
+module load pip/$pip_ver
+module load setuptools/$st_ver
+#module load openblas/$blas_ver
 module load cuda/$cuda_ver
 module load openmpi-ucx-gpu/$mpi_ver
 
