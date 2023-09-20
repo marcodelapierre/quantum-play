@@ -19,8 +19,10 @@ export n=4 ; export c=8 ; export OMP_NUM_THREADS=$c ; time srun --exact -N $n -n
 
 # GPU case
 
-# Slurm interactive session
+# Slurm interactive session - Setonix
 # salloc -N 1 --exclusive --gpus-per-node=8 -p gpu-dev -A pawsey0001-gpu --time=10:00
+# Slurm interactive session - Topaz
+# salloc -N 1 -n 2 -c 8 --gres=gpu:2 -p gpuq-dev -t 30:00
 
 # gpu offloading
 ./test-volume-qiskit-gpu-local.py
