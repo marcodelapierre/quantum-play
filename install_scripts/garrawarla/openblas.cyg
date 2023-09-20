@@ -1,0 +1,47 @@
+##############################################################################
+# maali cygnet file for openblas
+##############################################################################
+
+read -r -d '' MAALI_MODULE_WHATIS << EOF
+
+OpenBLAS is an optimized BLAS library based on GotoBLAS2 1.13 BSD version. 
+
+For further information see https://www.openblas.net/
+
+EOF
+
+# specify which compilers we want to build the tool with
+MAALI_TOOL_COMPILERS="gcc/8.3.0"
+MAALI_TOOL_CPU_TARGET="cascadelake"
+
+# URL to download the source code from
+MAALI_URL="https://github.com/OpenMathLib/OpenBLAS/archive/refs/tags/v$MAALI_TOOL_VERSION.tar.gz"
+MAALI_WGET_EXTRA="--no-check-certificate"
+
+# location we are downloading the source code to
+MAALI_DST="$MAALI_SRC/$MAALI_TOOL_NAME-$MAALI_TOOL_VERSION.tar.gz"
+
+# where the unpacked source code is located
+MAALI_TOOL_BUILD_DIR="$MAALI_BUILD_DIR/OpenBLAS-$MAALI_TOOL_VERSION"
+
+# type of tool (eg. apps, devel, python, etc.)
+MAALI_TOOL_TYPE="devel"
+
+# for auto-building module files
+MAALI_MODULE_SET_LD_LIBRARY_PATH=1
+MAALI_MODULE_SET_LIBRARY_PATH=1
+MAALI_MODULE_SET_CPATH=1
+MAALI_MODULE_SET_FPATH=1
+MAALI_MODULE_SET_FCPATH=1
+MAALI_MODULE_SET_PKG_CONFIG_PATH=1
+
+##############################################################################
+
+function maali_build {
+  # this is the core function for creating software
+
+  cd "$MAALI_TOOL_BUILD_DIR"
+  maali_run "make BINARY=64 TARGET=SKYLAKEX"
+  maali_run "make install PREFIX=$MAALI_INSTALL_DIR"
+}
+

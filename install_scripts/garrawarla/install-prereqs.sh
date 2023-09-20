@@ -12,8 +12,14 @@ module use $MYASTRO/software/mwa_sles12sp5/modulefiles
 
 sed -i "s;\"setuptools/.*\";\"setuptools/$st_ver\";g" pip.cyg
 
+maali -t libffi  -v 3.0.13
+maali -t openssl -v 1.1.1k
+maali -t sqlite  -v 3.7.17
+
 maali -t Python -v $py_ver
 export MAALI_DEFAULT_PYTHON=python/$py_ver
 
 maali -t setuptools -v $st_ver
 maali -t pip -v $pip_ver
+
+maali -t openblas -v 0.3.24
