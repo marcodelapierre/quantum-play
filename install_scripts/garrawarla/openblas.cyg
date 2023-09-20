@@ -41,7 +41,7 @@ function maali_build {
   # this is the core function for creating software
 
   cd "$MAALI_TOOL_BUILD_DIR"
-  maali_run "make BINARY=64 TARGET=SKYLAKEX"
+  maali_run "make shared BINARY=64 TARGET=SKYLAKEX"
   maali_run "make install PREFIX=$MAALI_INSTALL_DIR"
 }
 
