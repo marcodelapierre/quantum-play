@@ -15,6 +15,7 @@
 git clone https://github.com/PennyLaneAI/pennylane-lightning-gpu $source_dir/pennylane-lightning-gpu
 cd $source_dir/pennylane-lightning-gpu
 git checkout v$pl_ver
+pip install --prefix=$install_dir pytest mpi4py
 
 pip install --prefix=$install_dir nvidia-cuda-runtime-cu11 nvidia-cublas-cu11 nvidia-cusolver-cu11 nvidia-cusparse-cu11 cuquantum-cu11
 
