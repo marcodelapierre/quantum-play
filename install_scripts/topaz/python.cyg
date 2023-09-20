@@ -52,11 +52,10 @@ MAALI_WGET_EXTRA=--no-check-certificate
 
 ##############################################################################
 
-function maali_build {
+function maali_pre_build {
 # this is the core function for creating software
   cd "$MAALI_TOOL_BUILD_DIR"
 
-  # still not enough for the _ctypes build issue
   sed -i "/ext.libraries.append('dl')/a\ \ \ \ \ \ \ \ ext.libraries.append('ffi')" setup.py
 }
 
