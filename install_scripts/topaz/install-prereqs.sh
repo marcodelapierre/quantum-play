@@ -21,3 +21,5 @@ export MAALI_DEFAULT_PYTHON=python/$py_ver
 
 maali -t setuptools -v $st_ver
 maali -t pip -v $pip_ver
+
+maali -t openblas -v 0.3.24

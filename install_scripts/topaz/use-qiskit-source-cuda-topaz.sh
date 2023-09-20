@@ -9,7 +9,7 @@ aer_ver="0.12.2"
 py_ver="3.10.10"
 pip_ver="23.1.2"
 st_ver="68.0.0"
-blas_ver=""
+blas_ver="0.3.24"
 cuda_ver="11.4.2"
 mpi_ver="4.0.2"
 
@@ -17,7 +17,7 @@ mpi_ver="4.0.2"
 module load python/$py_ver
 module load pip/$pip_ver
 module load setuptools/$st_ver
-#module load openblas/$blas_ver
+module load openblas/$blas_ver
 module load cuda/$cuda_ver
 module load openmpi-ucx-gpu/$mpi_ver
 
