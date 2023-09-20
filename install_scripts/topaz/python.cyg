@@ -53,7 +53,6 @@ MAALI_WGET_EXTRA=--no-check-certificate
 ##############################################################################
 
 function maali_pre_build {
-# this is the core function for creating software
   cd "$MAALI_TOOL_BUILD_DIR"
 
   sed -i "/ext.libraries.append('dl')/a\ \ \ \ \ \ \ \ ext.libraries.append('ffi')" setup.py
