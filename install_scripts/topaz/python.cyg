@@ -29,7 +29,7 @@ MAALI_DST="$MAALI_SRC/$MAALI_TOOL_NAME_ORIG-$MAALI_TOOL_VERSION.tgz"
 MAALI_TOOL_BUILD_DIR="$MAALI_BUILD_DIR/$MAALI_TOOL_NAME_ORIG-$MAALI_TOOL_VERSION"
 
 # tool pre-requisites modules needed to install this new tool/package
-MAALI_TOOL_PREREQ="libffi/3.0.13 openssl/1.1.1k"
+MAALI_TOOL_PREREQ="libffi/3.0.13 openssl/1.1.1k sqlite/3.7.17"
 
 # for creating the module
 MAALI_PYTHON_LIB_VERSION=`echo "$MAALI_TOOL_VERSION" | cut -d '.' -f 1,2`
@@ -55,7 +55,10 @@ MAALI_WGET_EXTRA=--no-check-certificate
 function maali_pre_build {
   cd "$MAALI_TOOL_BUILD_DIR"
 
-  sed -i "/ext.libraries.append('dl')/a\ \ \ \ \ \ \ \ ext.libraries.append('ffi')" setup.py
+  sed -i \
+    -e "/ext.libraries.append('dl')/a\ \ \ \ \ \ \ \ ext.libraries.append('ffi')" \
+    -e "/sqlite_inc_paths = \[ / s;$; '$MAALI_SQLITE_HOME/include',;g" \
+    setup.py
 }
 
 function maali_build {
