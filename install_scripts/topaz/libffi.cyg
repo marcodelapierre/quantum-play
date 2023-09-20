@@ -39,3 +39,12 @@ MAALI_MODULE_SET_FCPATH=1
 MAALI_MODULE_SET_PKG_CONFIG_PATH=1
 
 ##############################################################################
+
+function maali_post_build {
+  cd "$MAALI_TOOL_BUILD_DIR"
+
+  mkdir -p $MAALI_INSTALL_DIR/include
+  cp -p \
+    $MAALI_TOOL_BUILD_DIR/x86_64-unknown-linux-gnu/include/ffi*.h \
+    $MAALI_INSTALL_DIR/include/
+}
