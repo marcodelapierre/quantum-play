@@ -9,7 +9,8 @@
 #SBATCH --time=00:30:00
 #SBATCH --output=out-%x
 
-. use-pennylane-source-cuda-topaz.sh
+script_dir="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+. $script_dir/use-pennylane-source-cuda-topaz.sh
 
 # install from source
 git clone https://github.com/PennyLaneAI/pennylane-lightning-gpu $source_dir/pennylane-lightning-gpu

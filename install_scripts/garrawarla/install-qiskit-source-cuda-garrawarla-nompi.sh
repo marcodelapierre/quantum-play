@@ -8,7 +8,8 @@
 #SBATCH --time=00:30:00
 #SBATCH --output=out-%x
 
-. use-qiskit-source-cuda-garrawarla-nompi.sh
+script_dir="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+. $script_dir/use-qiskit-source-cuda-garrawarla-nompi.sh
 
 # install
 git clone https://github.com/Qiskit/qiskit-aer $source_dir/qiskit-aer

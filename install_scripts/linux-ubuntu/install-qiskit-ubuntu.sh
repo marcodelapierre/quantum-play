@@ -1,6 +1,7 @@
 #!/bin/bash
 
-. use-qiskit-ubuntu.sh
+script_dir="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+. $script_dir/use-qiskit-ubuntu.sh
 
 # install pre-requisites
 sudo apt-get update

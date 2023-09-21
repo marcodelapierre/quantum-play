@@ -1,6 +1,7 @@
 #!/bin/bash
 
-. use-pennylane-ubuntu.sh
+script_dir="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+. $script_dir/use-pennylane-ubuntu.sh
 
 # install pre-requisites
 sudo apt-get update
