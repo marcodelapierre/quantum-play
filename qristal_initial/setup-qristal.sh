@@ -1,7 +1,8 @@
 #!/bin/bash
 
 export HERE="$(pwd)"
-. use-qristal.sh
+script_dir="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+. $script_dir/use-qristal.sh
 
 mkdir -p "${SOURCE_DIR}"
 mkdir -p "${INSTALL_DIR}"

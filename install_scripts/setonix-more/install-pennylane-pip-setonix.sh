@@ -1,6 +1,7 @@
 #!/bin/bash
 
-. use-pennylane-pip-setonix.sh
+script_dir="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+. $script_dir/use-pennylane-pip-setonix.sh
 
 # install
 # this will get kokkos with OpenMP backend

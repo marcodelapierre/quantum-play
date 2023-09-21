@@ -1,6 +1,7 @@
 #!/bin/bash
 
-. use-qiskit-source-mpi-setonix.sh
+script_dir="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+. $script_dir/use-qiskit-source-mpi-setonix.sh
 
 # install
 git clone https://github.com/Qiskit/qiskit-aer $source_dir/qiskit-aer
