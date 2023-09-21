@@ -9,7 +9,8 @@
 #SBATCH --time=00:30:00
 #SBATCH --output=out-%x
 
-. use-pennylane+qiskit-source-rocm-setonix.sh
+script_dir="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+. $script_dir/use-pennylane+qiskit-source-rocm-setonix.sh
 
 # install
 git clone https://github.com/Qiskit/qiskit-aer $source_dir/qiskit-aer

@@ -9,7 +9,8 @@
 #SBATCH --time=00:30:00
 #SBATCH --output=out-%x
 
-. use-pennylane-source-hip-setonix.sh
+script_dir="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+. $script_dir/use-pennylane-source-hip-setonix.sh
 
 # install from source
 git clone https://github.com/PennyLaneAI/pennylane-lightning-kokkos $source_dir/pennylane-lightning-kokkos
