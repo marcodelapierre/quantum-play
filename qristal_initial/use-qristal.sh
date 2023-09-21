@@ -7,7 +7,6 @@ module load eigen/3.4.0
 module load openblas/0.3.21
 
 script_dir="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-
 export WORKING_DIR="$script_dir"
 export SOURCE_DIR="${WORKING_DIR}/source"
 export INSTALL_DIR="${WORKING_DIR}/install"

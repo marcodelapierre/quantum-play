@@ -24,7 +24,8 @@ module load cmake/$cmake_ver
 
 # internal variables - do not edit
 python_ver="$( python3 -V | cut -d ' ' -f 2 | cut -d . -f 1,2 )"
-install_dir="$(pwd)/$tool_name"
+script_dir="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+install_dir="$script_dir/$tool_name"
 source_dir="${install_dir}-src"
 lib_dir="$install_dir/lib/python${python_ver}/site-packages"
 bin_dir="$install_dir/bin"
