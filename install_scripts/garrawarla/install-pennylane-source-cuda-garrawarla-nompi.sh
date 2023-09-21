@@ -21,6 +21,7 @@ pip install --prefix=$install_dir nvidia-cuda-runtime-cu11 nvidia-cublas-cu11 nv
 
 cmake -B build . \
   -DCMAKE_BUILD_TYPE=Release \
+  -DPYTHON_EXECUTABLE=$(which python) \
   -DPLLGPU_ENABLE_MPI=off \
   -DCUQUANTUM_SDK="$install_dir/lib/python${python_ver}/site-packages/cuquantum"
 cmake --build build --verbose

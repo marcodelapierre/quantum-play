@@ -1,11 +1,10 @@
 #!/bin/bash -l
 #SBATCH --job-name=install-pennylane-source-cuda-topaz
 #SBATCH --account=pawsey0001
-#SBATCH --partition=gpu-dev
-#SBATCH --exclusive
+#SBATCH --partition=gpuq-dev
 #SBATCH --ntasks=1
-#SBATCH --threads-per-core=1
-#SBATCH --gpus-per-node=8
+#SBATCH --cpus-per-task=8
+#SBATCH --gres=gpu:1
 #SBATCH --time=00:30:00
 #SBATCH --output=out-%x
 
@@ -22,6 +21,7 @@ pip install --prefix=$install_dir nvidia-cuda-runtime-cu11 nvidia-cublas-cu11 nv
 
 cmake -B build . \
   -DCMAKE_BUILD_TYPE=Release \
+  -DPYTHON_EXECUTABLE=$(which python) \
   -DPLLGPU_ENABLE_MPI=on \
   -DCUQUANTUM_SDK="$install_dir/lib/python${python_ver}/site-packages/cuquantum"
 cmake --build build --verbose
