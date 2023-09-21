@@ -1,0 +1,3 @@
+It is interesting because environments on Topaz and Garrawarla are quite similar.  
+The build succeeds on Topaz but fails on Garrawarla.
+One difference is in the GCC compiler version: 11.1.0 in Topaz vs 10.1.0 in Garrawarla.
