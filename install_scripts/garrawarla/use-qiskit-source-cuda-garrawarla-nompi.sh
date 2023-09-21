@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # essential for reproducibility of installation
-tool_name="qiskit-cuda"
+tool_name="qiskit-cuda-nompi"
 #qk_ver="0.44.1"
 aer_ver="0.12.2"
 

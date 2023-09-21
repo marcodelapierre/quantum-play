@@ -1,5 +1,5 @@
 #!/bin/bash -l
-#SBATCH --job-name=install-qiskit-source-cuda-topaz
+#SBATCH --job-name=install-qiskit-source-cuda-garrawarla-nompi
 #SBATCH --account=pawsey0001
 #SBATCH --partition=gpuq-dev
 #SBATCH --ntasks=1
