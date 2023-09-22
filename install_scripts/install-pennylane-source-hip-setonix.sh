@@ -27,24 +27,13 @@ git checkout v$pl_ver
 cmake -B build . \
   -DCMAKE_CXX_COMPILER=hipcc \
   -DCMAKE_CXX_FLAGS=--gcc-toolchain=$(dirname $(which g++))/../snos \
+  -DPYTHON_EXECUTABLE=$(which python) \
   -DCMAKE_BUILD_TYPE=Release \
   -DKokkos_ENABLE_HIP=ON \
   -DKokkos_ARCH_VEGA90A=ON \
   -DPLKOKKOS_ENABLE_NATIVE=ON
 #  -DCMAKE_VERBOSE_MAKEFILE=ON \
 #  -DPLKOKKOS_ENABLE_WARNINGS=ON \
-
-# Marco's workaround for pybind11 build configuration issue
-# (incorrectly picking up system Python instead of module Python)
-echo "Patching build/CMakeCache.txt"
-sed -i "s;/usr/bin/python3\.6;$PAWSEY_PYTHON_HOME/bin/python$python_ver;g" build/CMakeCache.txt
-sed -i "s;/usr/include/python3\.6m;$PAWSEY_PYTHON_HOME/include/python$python_ver;g" build/CMakeCache.txt
-sed -i "s;/usr/lib64/libpython3\.6m\.so;$PAWSEY_PYTHON_HOME/lib/libpython$python_ver.so;g" build/CMakeCache.txt
-sed -i "s;3\.6\.15(3\.6);$py_ver($python_ver);g" build/CMakeCache.txt
-sed -i "s;3\.6\.15;$py_ver;g" build/CMakeCache.txt
-sed -i "s;36m;${python_ver/./};g" build/CMakeCache.txt
-echo "Patching build/CMakeFiles/lightning_kokkos_qubit_ops.dir/flags.make"
-sed -i "s;/usr/include/python3\.6m;$PAWSEY_PYTHON_HOME/include/python$python_ver;g" build/CMakeFiles/lightning_kokkos_qubit_ops.dir/flags.make
 
 # Edric's workaround for __noinline__ build issue
 # Also requires --gcc-toolchain above
