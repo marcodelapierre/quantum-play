@@ -1,0 +1,2 @@
+I suspect pip pennylane-lightning-gpu was build with a too new ROCm/driver combo.
+I am going to try with an older pennylane-lightning-gpu version.

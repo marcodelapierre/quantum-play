@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/astro/pawsey0001/mdelapierre/test/./test-rotation-pennylane-lightning-gpu.py", line 7, in <module>
+    dev1 = qml.device("lightning.gpu", wires=1)
+  File "/astro/pawsey0001/mdelapierre/test/pennylane-pip/lib/python3.10/site-packages/pennylane/__init__.py", line 345, in device
+    dev = plugin_device_class(*args, **options)
+  File "/astro/pawsey0001/mdelapierre/test/pennylane-pip/lib/python3.10/site-packages/pennylane_lightning_gpu/lightning_gpu.py", line 263, in __init__
+    self._gpu_state = _gpu_dtype(c_dtype)(self._num_local_wires)
+pennylane_lightning_gpu.lightning_gpu_qubit_ops.PLException: [/project/pennylane_lightning_gpu/src/util/DataBuffer.hpp][Line:37][Method:DataBuffer]: Error in PennyLane Lightning: the provided PTX was compiled with an unsupported toolchain.
