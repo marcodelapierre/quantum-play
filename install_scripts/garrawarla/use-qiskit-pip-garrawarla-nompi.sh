@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # essential for reproducibility of installation
-tool_name="qiskit-pip"
+tool_name="qiskit-pip-nompi"
 qk_ver="0.44.1"
 aer_ver="0.12.2"
 

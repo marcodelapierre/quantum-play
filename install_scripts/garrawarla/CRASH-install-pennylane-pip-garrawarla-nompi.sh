@@ -1,7 +1,7 @@
 #!/bin/bash
 
 script_dir="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-. $script_dir/use-pennylane-pip-garrawarla-nompi.sh
+. $script_dir/CRASH-use-pennylane-pip-garrawarla-nompi.sh
 
 # install
 # this will get kokkos with Nvidia GPU backend

@@ -9,7 +9,7 @@
 #SBATCH --output=out-%x
 
 script_dir="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-. $script_dir/use-pennylane-source-cuda-garrawarla-nompi.sh
+. $script_dir/CRASH-use-pennylane-source-cuda-garrawarla-nompi.sh
 
 # install from source
 git clone https://github.com/PennyLaneAI/pennylane-lightning-gpu $source_dir/pennylane-lightning-gpu
