@@ -9,6 +9,7 @@ st_ver="68.0.0"
 module load maali/1.8.4
 mkdir -p $MYASTRO/software/mwa_sles12sp5/modulefiles
 module use $MYASTRO/software/mwa_sles12sp5/modulefiles
+module swap gcc gcc/8.3.0
 
 sed -i "s;\"setuptools/.*\";\"setuptools/$st_ver\";g" pip.cyg
 
