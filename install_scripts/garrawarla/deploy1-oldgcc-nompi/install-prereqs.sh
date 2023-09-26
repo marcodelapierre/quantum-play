@@ -24,5 +24,3 @@ maali -t pip -v $pip_ver
 
 maali -t openblas -v 0.3.24
 maali -t cmake -v 3.26.0
-
-maali -t gcc -v 11.1.0

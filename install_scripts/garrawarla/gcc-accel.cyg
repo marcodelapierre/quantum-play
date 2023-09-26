@@ -1,0 +1,84 @@
+##############################################################################
+# maali cygnet file for GCC
+##############################################################################
+
+read -r -d '' MAALI_MODULE_WHATIS << EOF
+
+The GNU Compiler Collection includes front ends for C, C++, Objective-C,
+Fortran, Ada, and Go, as well as libraries for these languages (libstdc++,...).
+GCC was originally written as the compiler for the GNU operating system. The
+GNU system was developed to be 100% free software, free in the sense that it
+respects the user's freedom.
+This version of the compiler was build with Offload support for Accelerators.
+
+For further information see https://gcc.gnu.org/
+
+EOF
+
+# specify which compilers we want to build the tool with
+MAALI_TOOL_COMPILERS="$MAALI_DEFAULT_SYSTEM_GCC"
+
+# specify the architectures we want to build the library on
+MAALI_TOOL_CPU_TARGET="na"
+
+# URL to download the source code from
+MAALI_URL="https://ftp.gnu.org/gnu/gcc/gcc-$MAALI_TOOL_VERSION/gcc-$MAALI_TOOL_VERSION.tar.xz" 
+
+# location we are downloading the source code to
+MAALI_DST="$MAALI_SRC/gcc-$MAALI_TOOL_VERSION.tar.xz"
+
+# where the unpacked source code is located
+MAALI_TOOL_BUILD_DIR="$MAALI_BUILD_DIR/gcc-$MAALI_TOOL_VERSION"
+
+# type of tool (eg. apps, devel, python, etc.)
+MAALI_TOOL_TYPE="devel"
+MAALI_TOOL_BUILD_PREREQ="cuda/10.2"
+MAALI_TOOL_CUDA_COMPILERS="cuda/10.2"
+
+# this is evil, do not try this at home
+MAALI_TOOL_NAME='gcc'
+
+# for auto-building module files
+MAALI_MODULE_SET_PATH=1
+MAALI_MODULE_SET_LD_LIBRARY_PATH='lib64'
+MAALI_MODULE_SET_MANPATH=1
+MAALI_MODULE_SET_COMPILER='gcc'
+MAALI_MODULE_SET_COMPILER_VER='$MAALI_TOOL_VERSION'
+MAALI_MODULE_SET_CC='gcc'
+MAALI_MODULE_SET_CXX='g++'
+MAALI_MODULE_SET_FC='gfortran'
+MAALI_MODULE_SET_F77='gfortran'
+MAALI_MODULE_SET_F90='gfortran'
+MAALI_MODULE_SET_F95='gfortran'
+MAALI_MODULE_SET_F9X='gfortran'
+
+##############################################################################
+
+function maali_build {
+  cd "$MAALI_TOOL_BUILD_DIR"
+  MAALI_TOOL_CONFIGURE_EVAL=`eval echo "$MAALI_TOOL_CONFIGURE"`
+  
+  git clone https://github.com/MentorEmbedded/nvptx-tools
+  cd nvptx-tools/
+  maali_run "./configure --with-cuda-driver-include=$MAALI_CUDA_HOME/include --with-cuda-driver-lib=$MAALI_CUDA_HOME/lib64 --prefix=$MAALI_INSTALL_DIR"
+  maali_run "make -j 16"
+  maali_run "make install"
+  cd ../
+  git clone https://github.com/MentorEmbedded/nvptx-newlib
+  contrib/download_prerequisites
+  ln -s nvptx-newlib/newlib newlib
+  export target=$(./config.guess)
+  mkdir build-nvptx-gcc
+  cd build-nvptx-gcc/
+  maali_run "../../gcc-$MAALI_TOOL_VERSION/configure --target=nvptx-none --with-build-time-tools=$MAALI_INSTALL_DIR/nvptx-none/bin --enable-as-accelerator-for=$target --disable-sjlj-exceptions --enable-newlib-io-long-long --enable-languages=c,c++,fortran,lto --prefix=$MAALI_INSTALL_DIR --enable-shared --enable-cxa_atexit"
+  maali_run "make -j 16"
+  maali_run "make install"
+  cd ../
+  mkdir build-host-gcc
+  cd build-host-gcc
+  maali_run "../../gcc-$MAALI_TOOL_VERSION/configure --enable-offload-targets=nvptx-none --with-cuda-driver-include=$MAALI_CUDA_HOME/include --with-cuda-driver-lib=$MAALI_CUDA_HOME/lib64 --disable-bootstrap --disable-multilib  --enable-languages=c,c++,fortran,lto  --prefix=$MAALI_INSTALL_DIR --enable-shared --enable-cxa_atexit"
+  maali_run "make -j16"
+  maali_run "make install"
+}
+
+##############################################################################

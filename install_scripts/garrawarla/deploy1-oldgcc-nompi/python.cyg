@@ -1,0 +1,79 @@
+##############################################################################
+# maali cygnet file for python
+# maali -t Python
+##############################################################################
+
+read -r -d '' MAALI_MODULE_WHATIS << EOF
+
+Python is a clear and powerful object-oriented programming language, comparable
+to Perl, Ruby, Scheme, or Java.
+
+For further information see https://www.python.org/
+
+EOF
+
+# specify which compilers we want to build the tool with
+MAALI_TOOL_COMPILERS="$MAALI_DEFAULT_SYSTEM_GCC"
+MAALI_TOOL_CPU_TARGET="na"
+
+MAALI_TOOL_REAL_NAME=Python
+
+# URL to download the source code from
+# Python prior to 3.X was distributed in .tar.xz format.  This is not the case any longer.
+MAALI_URL="https://www.python.org/ftp/python/$MAALI_TOOL_VERSION/$MAALI_TOOL_NAME_ORIG-$MAALI_TOOL_VERSION.tgz"
+
+# location we are downloading the source code to
+MAALI_DST="$MAALI_SRC/$MAALI_TOOL_NAME_ORIG-$MAALI_TOOL_VERSION.tgz"
+
+# where the unpacked source code is located
+MAALI_TOOL_BUILD_DIR="$MAALI_BUILD_DIR/$MAALI_TOOL_NAME_ORIG-$MAALI_TOOL_VERSION"
+
+# tool pre-requisites modules needed to install this new tool/package
+MAALI_TOOL_PREREQ="libffi/3.0.13 openssl/1.1.1k sqlite/3.7.17"
+
+# for creating the module
+MAALI_PYTHON_LIB_VERSION=`echo "$MAALI_TOOL_VERSION" | cut -d '.' -f 1,2`
+
+# for auto-building module files
+MAALI_MODULE_SET_MAALI_PYTHON_LIBDIR='lib'
+MAALI_MODULE_SET_MAALI_PYTHON_LIB_VERSION='${MAALI_PYTHON_LIB_VERSION}'
+MAALI_MODULE_SET_PATH=1
+MAALI_MODULE_SET_LD_LIBRARY_PATH=1
+MAALI_MODULE_SET_MANPATH=1
+MAALI_MODULE_SET_PKG_CONFIG_PATH=1
+MAALI_MODULE_SET_PYTHONPATH=1
+MAALI_MODULE_SET_PYTHON_VERSION='$MAALI_TOOL_VERSION'
+MAALI_MODULE_SET_PYTHON_DIR='$MAALI_APP_HOME'
+#MAALI_MODULE_SET_PYTHON_INCLUDE_PATH='include'
+MAALI_MODULE_SET_PYTHON_INCLUDE_PATH='$MAALI_APP_HOME/include/python${MAALI_TOOL_MAJOR_MINOR_VERSION}m'
+MAALI_MODULE_SET_PYTHON_LIB_VERSION='${MAALI_PYTHON_LIB_VERSION}m'
+
+MAALI_WGET_EXTRA=--no-check-certificate
+
+##############################################################################
+
+function maali_pre_build {
+  cd "$MAALI_TOOL_BUILD_DIR"
+
+  sed -i \
+    -e "/ext.libraries.append('dl')/a\ \ \ \ \ \ \ \ ext.libraries.append('ffi')" \
+    -e "/sqlite_inc_paths = \[ / s;$; '$MAALI_SQLITE_HOME/include',;g" \
+    setup.py
+}
+
+function maali_build {
+  cd "$MAALI_TOOL_BUILD_DIR"
+
+  maali_run "./configure --prefix=$MAALI_INSTALL_DIR --enable-shared --enable-unicode=ucs4"
+  maali_run "make -j $MAALI_CORES"
+  maali_run "make install"
+  maali_run "make clean"
+
+  if [ $MAALI_TOOL_MAJOR_VERSION -ge 3 ]; then
+    cd "$MAALI_INSTALL_DIR/bin"
+    maali_run "ln -s python$MAALI_TOOL_MAJOR_VERSION python"
+    maali_run "ln -s pip$MAALI_TOOL_MAJOR_VERSION pip"
+  fi
+}
+
+##############################################################################
