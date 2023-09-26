@@ -13,6 +13,9 @@ module swap gcc gcc/8.3.0
 
 sed -i "s;\"setuptools/.*\";\"setuptools/$st_ver\";g" pip.cyg
 
+# required by openblas (and in principle cmake) in this setup
+maali -t gcc -v 11.1.0
+
 maali -t libffi  -v 3.0.13
 maali -t openssl -v 1.1.1k
 maali -t sqlite  -v 3.7.17

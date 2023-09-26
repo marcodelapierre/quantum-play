@@ -16,7 +16,7 @@ EOF
 
 # specify which compilers we want to build the tool with
 #MAALI_TOOL_COMPILERS="$MAALI_DEFAULT_SYSTEM_GCC" 
-MAALI_TOOL_COMPILERS="gcc/10.1.0"
+MAALI_TOOL_COMPILERS="gcc/10.1.0" # gcc/11.1.0"
 MAALI_TOOL_CPU_TARGET="na"
 
 # URL to download the source code from

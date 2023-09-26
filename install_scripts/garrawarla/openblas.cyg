@@ -11,7 +11,7 @@ For further information see https://www.openblas.net/
 EOF
 
 # specify which compilers we want to build the tool with
-MAALI_TOOL_COMPILERS="gcc/8.3.0"
+MAALI_TOOL_COMPILERS="gcc/8.3.0 gcc/11.1.0"
 MAALI_TOOL_CPU_TARGET="cascadelake"
 
 # URL to download the source code from
