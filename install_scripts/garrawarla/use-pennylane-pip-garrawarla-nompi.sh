@@ -1,9 +1,10 @@
 #!/bin/bash
 
 # essential for reproducibility of installation
-tool_name="pennylane-pip-nompi-pl27"
-pl_ver="0.27.0"
+tool_name="pennylane-pip-nompi"
+pl_ver="0.32.0"
 # host versions
+gcc_ver="11.1.0"
 py_ver="3.10.10"
 pip_ver="23.1.2"
 st_ver="68.0.0"
@@ -11,7 +12,7 @@ cuda_ver="11.4.2"
 
 # load modules
 module use $MYASTRO/software/mwa_sles12sp5/modulefiles
-module swap gcc gcc/8.3.0
+module swap gcc gcc/$gcc_ver
 module load python/$py_ver
 module load pip/$pip_ver
 module load setuptools/$st_ver
