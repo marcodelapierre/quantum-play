@@ -27,3 +27,6 @@ maali -t openblas -v 0.3.24
 maali -t cmake -v 3.26.0
 
 maali -t gcc -v 11.1.0
+maali -t gdrcopy -v 1.3 -n
+maali -t ucx -v 1.6.0 -n
+maali -t openmpi-ucx -v 4.0.3 -n

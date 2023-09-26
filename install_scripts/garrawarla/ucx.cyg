@@ -1,0 +1,68 @@
+##############################################################################
+# maali cygnet file for  ucx
+##############################################################################
+
+read -r -d '' MAALI_MODULE_WHATIS << EOF
+
+An open-source production grade communication framework for data centric and high-performance applications
+
+EOF
+
+#Mellanox 1.5 build is this
+## UCT version=1.5.0 revision 02078b9
+# configured with: --build=x86_64-redhat-linux-gnu --host=x86_64-redhat-linux-gnu --program-prefix= --disable-dependency-tracking --prefix=/usr --exec-prefix=/usr --bindir=/usr/bin --sbindir=/usr/sbin --sysconfdir=/etc --datadir=/usr/share --includedir=/usr/include --libdir=/usr/lib64 --libexecdir=/usr/libexec --localstatedir=/var --sharedstatedir=/var/lib --mandir=/usr/share/man --infodir=/usr/share/info --disable-optimizations --disable-logging --disable-debug --disable-assertions --enable-mt --disable-params-check
+
+#Other things we care if GPU meaning has to be ib / nvidia
+#--with-cuda=(DIR)  
+#--with-gdrcopy=(DIR)
+
+
+# specify which compilers we want to build the tool with
+MAALI_TOOL_COMPILERS="$MAALI_DEFAULT_SYSTEM_GCC"
+MAALI_TOOL_CUDA_COMPILERS="cuda/11.4.2"
+
+# tool pre-requisites modules needed to install this new tool/package
+# MAALI_TOOL_PREREQ="cuda/10.1"
+
+# URL to download the source code from
+# https://github.com/openucx/ucx/releases/download/v1.6.0/ucx-1.6.0.tar.gz
+MAALI_URL="https://github.com/openucx/ucx/releases/download/v${MAALI_TOOL_VERSION}/ucx-${MAALI_TOOL_VERSION}.tar.gz"
+
+# location we are downloading the source code to
+MAALI_DST="$MAALI_SRC/${MAALI_TOOL_NAME}-${MAALI_TOOL_VERSION}.tar.gz"
+
+# where the unpacked source code is located
+MAALI_TOOL_BUILD_DIR="$MAALI_BUILD_DIR/${MAALI_TOOL_NAME}-${MAALI_TOOL_VERSION}"
+
+# type of tool (eg. apps, devel, python, etc.)
+MAALI_TOOL_TYPE="devel"
+
+# tool pre-requisites modules needed to install this new tool/package
+MAALI_TOOL_BUILD_PREREQ=""
+
+if [ "${MAALI_CUDA_BUILD}" -eq 1 ]; then
+    # Based on mellanox ucx template
+    # MAALI_TOOL_PREREQ="cuda/10.1 gdrcopy-gpu/1.3"
+    # Based on Marco Comment if MAALI_TOOL_CUDA_COMPILERS="cuda/10.1" if set
+    MAALI_TOOL_PREREQ="gdrcopy-gpu/1.3"
+    # MAALI_TOOL_CONFIGURE='--with-cuda=\${MAALI_CUDA_HOME} --with-gdrcopy=\${MAALI_GDRCOPY_HOME} --disable-optimizations --disable-assertions --enable-mt --disable-params-check'
+    MAALI_TOOL_CONFIGURE='--with-cuda=\${MAALI_CUDA_HOME} --with-gdrcopy=\${MAALI_GDRCOPY_HOME} --disable-optimizations --disable-assertions --enable-mt --disable-params-check --with-rc --with-ud --with-dc --with-dm'
+else
+    # Based on mellanox ucx
+    # MAALI_TOOL_CONFIGURE='--disable-optimizations --disable-assertions --enable-mt --disable-params-check'
+    MAALI_TOOL_CONFIGURE='--disable-optimizations --disable-assertions --enable-mt --disable-params-check --with-rc --with-ud --with-dc --with-dm'
+fi
+
+# for auto-building module files
+MAALI_MODULE_SET_PATH=1
+MAALI_MODULE_SET_MANPATH=0
+MAALI_MODULE_SET_CPATH=1
+MAALI_MODULE_SET_FPATH=1
+MAALI_MODULE_SET_FCPATH=1
+MAALI_MODULE_SET_LD_LIBRARY_PATH=1
+MAALI_MODULE_SET_LIBRARY_PATH=1
+MAALI_MODULE_SET_PKG_CONFIG_PATH=1
+
+##############################################################################
+
+
