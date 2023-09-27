@@ -16,9 +16,9 @@ To get started with the contents of `install_scripts/` and `device_test_scripts/
 
 Useful resources:
 * [PennyLane repo](https://github.com/pennyLaneAI/pennylane)
-* [PennyLane Lightning repo](https://github.com/PennyLaneAI/pennylane)
-* [PennyLane Lightning Kokkos repo](https://github.com/PennyLaneAI/pennylane-kokkos)
-* [PennyLane Lightning GPU repo](https://github.com/PennyLaneAI/pennylane-gpu)
+* [PennyLane Lightning repo](https://github.com/PennyLaneAI/pennylane-lightning)
+* [PennyLane Lightning Kokkos repo](https://github.com/PennyLaneAI/pennylane-lightning-kokkos)
+* [PennyLane Lightning GPU repo](https://github.com/PennyLaneAI/pennylane-lightning-gpu)
 * [Docs](https://docs.pennylane.ai)
 * [Learning Centre](https://pennylane.ai/qml/)
 * [Xanadu Quantum Codebook](https://codebook.xanadu.ai)
